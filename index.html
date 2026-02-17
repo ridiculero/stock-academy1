@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Stock Market Academy</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="screen active">
+            <div class="container">
+                <h1>📈 Stock Market Academy</h1>
+                <p class="subtitle">Learn to invest!</p>
+                
+                <div id="userList" class="user-list"></div>
+                
+                <button class="btn-large btn-create" onclick="game.showCreateUser()">
+                    ➕ Create New Player
+                </button>
+                
+                <div id="createUserForm" class="hidden">
+                    <input type="text" id="newUsername" placeholder="Username (4-12 chars)" maxlength="12">
+                    <button class="btn-large btn-success" onclick="game.createUser()">Create</button>
+                    <button class="btn-large btn-secondary" onclick="game.hideCreateUser()">Cancel</button>
+                </div>
+                
+                <button class="btn-small btn-admin" onclick="game.showAdmin()">⚙️ Admin</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <div class="header">
+                <div class="user-info">
+                    <span id="username"></span>
+                    <span class="day">Day <span id="day">0</span></span>
+                </div>
+                <div class="portfolio-value">
+                    <div class="label">Portfolio</div>
+                    <div class="value" id="portfolioValue">$100.00</div>
+                    <div class="change" id="portfolioChange">$0.00 (0%)</div>
+                </div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="game.showTab('portfolio')">📊 Portfolio</button>
+                <button class="tab" onclick="game.showTab('market')">💹 Market</button>
+                <button class="tab" onclick="game.showTab('news')">📰 News</button>
+            </div>
+
+            <div id="content" class="content"></div>
+
+            <div class="action-bar">
+                <button class="btn-massive" onclick="game.advanceTime()">
+                    🕐 Open Markets
+                </button>
+            </div>
+        </div>
+
+        <!-- Password Modal -->
+        <div id="passwordModal" class="modal">
+            <div class="modal-content">
+                <h2>Enter Password</h2>
+                <input type="password" id="tradePassword" placeholder="Password">
+                <button class="btn-large btn-success" onclick="game.verifyPassword()">OK</button>
+                <button class="btn-large btn-secondary" onclick="game.closePassword()">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Asset Modal -->
+        <div id="assetModal" class="modal">
+            <div class="modal-content">
+                <h2 id="assetName"></h2>
+                <div id="assetInfo"></div>
+                <div class="trade-form">
+                    <input type="number" id="tradeAmount" placeholder="Dollar amount" min="0.01" step="0.01">
+                    <button class="btn-large btn-success" onclick="game.trade('buy')">Buy</button>
+                    <button class="btn-large btn-danger" onclick="game.trade('sell')">Sell</button>
+                </div>
+                <button class="btn-large btn-secondary" onclick="game.closeAsset()">Close</button>
+            </div>
+        </div>
+
+        <!-- Admin Modal -->
+        <div id="adminModal" class="modal">
+            <div class="modal-content">
+                <h2>Admin Panel</h2>
+                <input type="password" id="adminPassword" placeholder="Admin Password">
+                <button class="btn-large btn-primary" onclick="game.verifyAdmin()">Unlock</button>
+                <div id="adminContent" class="hidden">
+                    <h3>Users</h3>
+                    <div id="adminUsers"></div>
+                    <button class="btn-large" onclick="game.exportData()">📥 Export Data</button>
+                </div>
+                <button class="btn-large btn-secondary" onclick="game.closeAdmin()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
